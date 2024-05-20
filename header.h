@@ -2,6 +2,7 @@
 #include <regex>
 #include <string>
 #include <vector>
+#include <queue>
 #include <sstream>
 #include <map>
 
@@ -81,5 +82,5 @@ struct Client
 };
 
 extern std::map<std::string, Client> cl;
-extern std::vector<std::string> queue;
+extern std::queue<std::string> que;
 extern std::stringstream ss;
