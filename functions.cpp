@@ -7,7 +7,7 @@ int t_open, t_close;
 vector<Table> tbl;
 stringstream ss;
 map<string, Client> cl;
-vector<string> queue;
+queue<string> que;
 
 int incorrect_format(string s)
 {
@@ -119,8 +119,8 @@ void ev_3(string t, string name, int ti)
 {
 	if (client_unknown(name)) return ev_13(t, "ClientUnknown");
 	if (!is_full()) return ev_13(t, "ICanWaitNoLonger!");
-	if (queue.size() == N) return ev_11(t, name, ti);
-	queue.push_back(name);
+	if (que.size() == N) return ev_11(t, name, ti);
+	que.push(name);
 }
 
 void ev_4(string t, string name, int ti)
@@ -141,9 +141,9 @@ void ev_11(string t, string name, int ti)
 
 void ev_12(string t, long long ta, int ti)
 {
-	if (queue.size() == 0) return;
-	string name = queue[0];
-	queue.erase(queue.begin());
+	if (que.size() == 0) return;
+	string name = que.front();
+	que.pop();
 	if (client_unknown(name)) return ev_12(t, ta, ti);
 	ss << t << " 12 " << name << " " << ta << endl;
 	cl[name].arrive(ti, ta);
